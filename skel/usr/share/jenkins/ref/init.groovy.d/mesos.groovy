@@ -181,26 +181,31 @@ def addMesosCloud(cloudList, env) {
       slaveAttributes = env["JENKINS_MESOS_SLAVE_${i}_SLAVE_ATTRIB"] ?: '',
       jvmArgs = env["JENKINS_MESOS_SLAVE_${i}_JVM_ARGS"],           //default in class
       jnlpArgs = env["JENKINS_MESOS_SLAVE_${i}_JNLP_ARGS"] ?: '',
-      externalContainerInfo = null,
+      defaultSlave = null,
       containerInfo = slaveContainerInfo,
       additionalURIs = slaveUris,
+      nodeProperties = null,
     )
 
     slaveContainers.add(slaveInfo)
   }
 
   def cloud = new MesosCloud(
+    cloudName = env['JENKINS_MESOS_MASTER'] ?: 'Mesos Cloud',
     nativeLibraryPath = '/usr/lib/libmesos.so',
     master = env['JENKINS_MESOS_MASTER'] ?: '',
     description = env['JENKINS_MESOS_DESCRIPTION'] ?: '',
     frameworkName = env['JENKINS_MESOS_FRAMEWORK_NAME'] ?: 'Jenkins Scheduler',
+    role = env['JENKINS_ROLE'] ?: '*',
     slavesUser = env['JENKINS_MESOS_SLAVES_USER'] ?: 'jenkins',
+    credentialsId = env['JENKINS_MESOS_SLAVES_CREDENTIALS_ID'] ?: '',
     principal = env['JENKINS_MESOS_PRINCIPAL'] ?: 'jenkins',
     secret = env['JENKINS_MESOS_SECRET'] ?: '',
     slaveInfos = slaveContainers,
     checkpoint = (env['JENKINS_MESOS_CHECKPOINT'] ?: 'false').toBoolean(),
     onDemandRegistration = (env['JENKINS_MESOS_ON_DEMAND'] ?: 'true').toBoolean(),
-    jenkinsURL = env['JENKINS_MESOS_URL'] ?: ''
+    jenkinsURL = env['JENKINS_MESOS_URL'] ?: '',
+    declineOfferDuration =  env['JENKINS_DECLINE_OFFER_DURATION'] ?: '',
   )
 
   cloudList.add(cloud)

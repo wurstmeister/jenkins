@@ -17,7 +17,7 @@ FROM mrbobbytables/mesos-base:1.2.0
 MAINTAINER Bob Killen / killen.bob@gmail.com / @mrbobbytables
 
 
-ENV VERSION_JENKINS=1.642.1        \
+ENV VERSION_JENKINS=2.9        \
     JENKINS_HOME=/var/lib/jenkins  \
     PLUGIN_DEFS=/opt/scripts/plugins.def
 
@@ -26,7 +26,7 @@ RUN mkdir -p /usr/share/jenkins        \
  && mkdir -p /var/lib/jenkins/plugins  \
  && groupadd -g 989 jenkins            \
  && useradd -d $JENKINS_HOME -u 989 -g 989 -s /bin/bash jenkins  \
- && wget -P /usr/share/jenkins http://mirrors.jenkins-ci.org/war-stable/$VERSION_JENKINS/jenkins.war
+ && wget -P /usr/share/jenkins http://mirrors.jenkins-ci.org/war/$VERSION_JENKINS/jenkins.war
 
 COPY ./skel /
 

@@ -11,7 +11,7 @@
 cp -Ru /usr/share/jenkins/ref/* "$JENKINS_HOME"
 
 if [[ ! -d "$JENKINS_HOME/plugins" ]]; then
-  /opt/scripts/fetch-jenkins-plugins.sh "$PLUGIN_DEFS"
+  /opt/scripts/fetch-jenkins-plugins.sh "$PLUGIN_DEFS" "$JENKINS_HOME/plugins"
 fi
 
 chown -R jenkins:jenkins "$JENKINS_HOME"

@@ -37,7 +37,7 @@ RUN chmod +x ./init.sh                                   \
  && chmod +x /opt/scripts/marathon_env_init.sh           \
  && cp -R /usr/share/jenkins/ref/* /var/lib/jenkins      \
  && sleep 1                                              \
- && /opt/scripts/fetch-jenkins-plugins.sh $PLUGIN_DEFS   \
+ && /opt/scripts/fetch-jenkins-plugins.sh $PLUGIN_DEFS /tmp/plugins  \
  && chown -R jenkins:jenkins /usr/share/jenkins          \
  && chown -R jenkins:jenkins /var/lib/jenkins            \
  && chown -R jenkins:jenkins /var/log/jenkins

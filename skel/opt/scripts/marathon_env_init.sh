@@ -25,7 +25,7 @@ export JENKINS_HTTP_PORT="$PORT0"
 export JENKINS_JNLP_PORT="$PORT1"
 export LIBPROCESS_IP="$local_ip"
 export LIBPROCESS_PORT="$PORT2"
-export LIBPROCESS_ADVERTISE_IP="$HOST"
+export LIBPROCESS_ADVERTISE_IP="$(ping -c 1 $HOST | head -1 | awk '{print $3}' | sed -e 's/[\(\)]//g')"
 export LIBPROCESS_ADVERTISE_PORT="$PORT2"
 
 

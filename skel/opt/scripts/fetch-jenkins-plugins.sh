@@ -1,4 +1,6 @@
 #!/bin/bash
+set +m
+shopt -s lastpipe
 
 UPDATES_URL="http://updates.jenkins-ci.org/download/plugins/"
 
@@ -61,16 +63,14 @@ while [ "$changed"  == "1" ]; do
        echo $deps | tr ' ' '\n' | 
        while IFS=: read plugin version; do
           installPlugin $plugin $version
-          rc=$?; if [[ $rc == 0 ]]; then changed=1; fi
+          rc=$?;
+          if [[ $rc == 0 ]]; then
+            changed=1;
+          fi
        done
-       #changed=1
     fi
   done
 done
-
-#echo "fixing permissions"
-
-#chown ${file_owner} ${plugin_dir} -R
 
 echo "all done"
 
